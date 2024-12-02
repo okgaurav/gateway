@@ -6,6 +6,8 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 
+import java.time.LocalDateTime;
+
 @SpringBootApplication
 public class GatewayApplication {
 
@@ -17,7 +19,8 @@ public class GatewayApplication {
     public RouteLocator cryptoRouteConfig(RouteLocatorBuilder routeLocatorBuilder){
         return routeLocatorBuilder.routes()
                 .route(p-> p.path("/service/crypto/**")
-                        .filters(f-> f.rewritePath("/service/crypto/(?<segment>.*)","/${segment}"))
+                        .filters(f-> f.rewritePath("/service/crypto/(?<segment>.*)","/${segment}")
+                                .addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
                         .uri("lb://CRYPTO"))
                 .route(p-> p.path("/service/exchange/**")
                         .filters(f-> f.rewritePath("/service/exchange/(?<segment>.*)","/${segment}"))

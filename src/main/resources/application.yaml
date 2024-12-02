@@ -36,3 +36,9 @@ info:
     name: "gateway server"
     description: "crypto coin gateway server"
     version: "1.0.0"
+
+logging:
+  level:
+    com:
+      coins:
+        gateway: DEBUG
