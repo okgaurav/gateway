@@ -1,6 +1,6 @@
 spring:
   application:
-    name: gatewayserver
+    name: gateway
   config:
     import: "optional:configserver:http://localhost:8071"
   cloud:
@@ -42,3 +42,11 @@ logging:
     com:
       coins:
         gateway: DEBUG
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 2
+      failureRateThreshold: 50 #50% is failed then move to standby
+      waitDurationInOpenState: 10000 #wait for 10sec
