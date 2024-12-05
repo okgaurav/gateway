@@ -9,18 +9,29 @@ spring:
         locator:
           enabled: false
           lower-case-service-id: true  #to make capital case to lower case in URL
+      httpclient:
+        connect-timeout: 1000
+        response-timeout: 10s
 
 management:
   endpoints:
     web:
       exposure:
         include: "*"
-  endpoint:
-    gateway:
-      access: unrestricted
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
   info:
     env:
       enabled: true
+  endpoint:
+    shutdown:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
 eureka:
   instance:
     preferIpAddress: true
