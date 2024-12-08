@@ -12,6 +12,11 @@ spring:
       httpclient:
         connect-timeout: 1000
         response-timeout: 10s
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: "http://localhost:7080/realms/master/protocol/openid-connect/certs" #this will provide a public certificate, that certificate will be auth by keycloak server that it issued by keycloak or not.
 
 management:
   endpoints:
@@ -63,3 +68,5 @@ resilience4j.circuitbreaker:
       permittedNumberOfCallsInHalfOpenState: 2
       failureRateThreshold: 50 #50% is failed then move to standby
       waitDurationInOpenState: 10000 #wait for 10sec
+
+
